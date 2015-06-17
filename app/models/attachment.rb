@@ -256,7 +256,7 @@ class Attachment < ActiveRecord::Base
 
   def self.latest_attach(attachments, filename)
     attachments.sort_by(&:created_on).reverse.detect {
-      |att| att.filename.downcase == filename.downcase
+      |att| att.filename.downcase == filename.downcase.gsub(/%20/,' ');
      }
   end
 
