@@ -7,6 +7,7 @@ end
 gem "rails", "4.2.5"
 gem "jquery-rails", "~> 3.1.4"
 gem "coderay", "~> 1.1.0"
+gem "coderay_bash", "~> 1.0.7"
 gem "builder", ">= 3.0.4"
 gem "request_store", "1.0.5"
 gem "mime-types"
