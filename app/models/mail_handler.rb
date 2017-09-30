@@ -578,8 +578,12 @@ class MailHandler < ActionMailer::Base
     end
 
     unless delimiters.empty?
-      regex = Regexp.new("^[> ]*(#{ Regexp.union(delimiters) })[[:blank:]]*[\r\n].*", Regexp::MULTILINE)
-      body = body.gsub(regex, '')
+      #logger.info "DEBUG #{body}" if logger
+      regex = Regexp.new("^[> ]*.*(#{ delimiters.join('|')}).*$")
+      index = body.index(regex) || (body.length - 1)
+      #logger.info "DEBUG #{index}" if logger
+      body = body.slice(0, index)
+      #logger.info "DEBUG #{body}" if logger
     end
     body.strip
   end
