@@ -563,8 +563,12 @@ class MailHandler < ActionMailer::Base
   def cleanup_body(body)
     delimiters = Setting.mail_handler_body_delimiters.to_s.split(/[\r\n]+/).reject(&:blank?).map {|s| Regexp.escape(s)}
     unless delimiters.empty?
-      regex = Regexp.new("^[> ]*(#{ delimiters.join('|') })\s*[\r\n].*", Regexp::MULTILINE)
-      body = body.gsub(regex, '')
+      #logger.info "DEBUG #{body}" if logger
+      regex = Regexp.new("^[> ]*.*(#{ delimiters.join('|')}).*$")
+      index = body.index(regex) || (body.length - 1)
+      #logger.info "DEBUG #{index}" if logger
+      body = body.slice(0, index)
+      #logger.info "DEBUG #{body}" if logger
     end
     body.strip
   end
