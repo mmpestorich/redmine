@@ -122,8 +122,10 @@ module Redmine
         def formatter
           @@formatter ||= Redcarpet::Markdown.new(
             Redmine::WikiFormatting::Markdown::HTML.new(
-              :filter_html => true,
-              :hard_wrap => true
+              :filter_html => false,
+              :hard_wrap => true,
+	      :xhtml => true,
+	      :with_toc_data => true
             ),
             :autolink => true,
             :fenced_code_blocks => true,
@@ -134,7 +136,9 @@ module Redmine
             :no_intra_emphasis => true,
             :footnotes => true,
             :lax_spacing => true,
-            :underline => true
+            :underline => true,
+	    :highlight => true,
+	    :quote => true
           )
         end
       end
